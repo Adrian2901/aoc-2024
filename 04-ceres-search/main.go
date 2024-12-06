@@ -9,7 +9,9 @@ import (
 
 // Table of all 8 valid directions
 // (-1, -1) -> up-left, (1, 1) -> down-right, etc.
-var Directions = [][]int{{-1, -1}, {-1, 0}, {0, -1}, {-1, 1}, {1, -1}, {0, 1}, {1, 0}, {1, 1}}
+var Directions = [8][2]int{{-1, -1}, {-1, 0}, {0, -1}, {-1, 1}, {1, -1}, {0, 1}, {1, 0}, {1, 1}}
+
+var XDirections = [4][2]int{{-1, -1}, {-1, 1}, {1, -1}, {1, 1}}
 
 // Read the input data file
 func readData() [][]string {
@@ -70,8 +72,52 @@ func search(data [][]string, word string) int {
 	return count
 }
 
+// Part 2
+// Search for a X-shaped "MAS", with "A" in the center
+func findXMas(data [][]string) int {
+	count := 0	// Count of found Xs
+
+	// Iterate through the rows
+	for i := 0; i < len(data); i++ {
+		// Iterate through colums in a row
+		for j := 0; j < len(data[i]); j++ {
+			// If the letter is in the middle of the X ("A")
+			if data[i][j] == "A" {
+				var mCount, sCount int
+				// Iterate through all valid directions
+				for _, dir := range XDirections {
+					// Move the indices diagonally
+					y := i + dir[0]
+					x := j + dir[1]
+
+					// Break if indices are out of bounds
+					if x < 0 || y < 0 || x > len(data[0])-1 || y > len(data)-1 {
+						break
+					}
+
+					// We only care about "M"s and "S"s, so I'm counting those for each potential X
+					if data[y][x] == "M" {
+						mCount++
+					} else if data[y][x] == "S" {
+						sCount++
+					}
+				}
+				// X is only valid if there's 2 "M"s and 2 "S"s...
+				if mCount == 2 && sCount == 2 {
+					///...and the same letters are on the same side (i.e. not diagonal)
+					if data[i+1][j+1] != data[i-1][j-1]{
+						count++
+					}
+				}
+			}
+		}
+	}
+	return count
+}
+
 
 func main() {
 	data := readData()
-    fmt.Print(search(data, "XMAS"))
+    fmt.Printf("Part 1: %d\n", search(data, "XMAS"))
+	fmt.Printf("Part 2: %d\n", findXMas(data))
 }
