@@ -7,7 +7,7 @@ I decided to use Go for now to get to know it better, but I might switch to othe
 
 Day 01: ⭐
 
-Day 02: ⭐
+Day 02: ⭐⭐
 
 Day 03: ⭐⭐
 
