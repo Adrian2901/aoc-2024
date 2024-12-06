@@ -76,9 +76,28 @@ func compare(n, m [Locations]int) int{
     return diff
 }
 
+// Part 2: calculate the similarity score of two arrays of sorted locations
+func similarityScore(n, m [Locations]int) int {
+    score := 0 // similarity score
+    for _, i := range n {
+        count := 0 // number of times number appears in the right list
+        for _, j := range m {
+            if i == j {
+                count++
+            } else if i < j {
+                // Since the lists are sorted, we can break after we go over the number
+                break
+            }
+        }
+        score += i * count
+    }
+    return score
+}
+
 func main() {
     var n, m [Locations]int = readInput()
     radixSort(&n, Locations)
     radixSort(&m, Locations)
-    fmt.Print(compare(n, m))
+    fmt.Println(compare(n, m))
+    fmt.Println(similarityScore(n, m))
 }
