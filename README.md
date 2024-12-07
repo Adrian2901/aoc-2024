@@ -16,7 +16,7 @@ Click on the links to read the problem descriptions!
 
 [Day 04](https://adventofcode.com/2024/day/4): ⭐⭐
 
-[Day 05](https://adventofcode.com/2024/day/5): ⭐
+[Day 05](https://adventofcode.com/2024/day/5): ⭐⭐
 
 [Day 06](https://adventofcode.com/2024/day/6):
 
