@@ -41,19 +41,19 @@ func readData() map[int][]int {
 func helper(current int, result int, numbers []int) bool {
 	// Base case
 	if len(numbers) == 0 {
-		if current == result {return true}
-
-		return false
+		return current == result
 	} 
 
 	n := numbers[0]
 	addition := helper(current+n, result, numbers[1:])
 	multiplication := helper(current*n, result, numbers[1:])
+	// Part 2: Check concatenated numbers as well
 	concatenation := helper(concatenate(current, n), result, numbers[1:])
 
 	return addition || multiplication || concatenation
 }
 
+// Part 2: Concatenate two numbers
 func concatenate(n int, m int) int {
 	s1 := strconv.Itoa(n)
 	s2 := strconv.Itoa(m)
@@ -70,5 +70,6 @@ func main() {
 			sum += k
 		}
 	}
+	// Just printing Part 2 for this one, it's similar enough
 	fmt.Printf("Result: %d\n", sum)
 }
