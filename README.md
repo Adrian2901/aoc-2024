@@ -3,7 +3,7 @@
 
 I decided to use Go for now to get to know it better, but I might switch to other languages randomly as well.
 
-*(started a bit late, but catching up! I will come back for some missed stars later)*
+*(I will come back for some missed stars later)*
 
 ### 📃 Progress
 Click on the links to read the problem descriptions!
@@ -24,4 +24,4 @@ Click on the links to read the problem descriptions!
 
 [Day 08](https://adventofcode.com/2024/day/8): ⭐⭐
 
-[Day 09](https://adventofcode.com/2024/day/9):
+[Day 09](https://adventofcode.com/2024/day/9): ⭐
