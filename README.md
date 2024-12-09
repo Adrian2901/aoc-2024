@@ -24,4 +24,4 @@ Click on the links to read the problem descriptions!
 
 [Day 08](https://adventofcode.com/2024/day/8): ⭐⭐
 
-[Day 09](https://adventofcode.com/2024/day/9): ⭐
+[Day 09](https://adventofcode.com/2024/day/9): ⭐⭐
