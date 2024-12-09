@@ -45,39 +45,45 @@ func readData() map[string][][2]int {
 }
 
 func placeAntinodes(antennas map[string] [][2]int) int {
-	potentialAntinodes := make([][2]int, 0)
 	antinodes := map[[2]int]bool{}
 	
 	for _, v := range antennas {
 		for i := 0; i < len(v) - 1; i++ {
 			for j := i+1; j < len(v); j++ {
-				xDiff := abs(v[i][0] - v[j][0])
-				yDiff := abs(v[i][1] - v[j][1])
-				// TODO: I will refactor this later, I was just tesing if it works (it does)
-				var antinode1X, antinode1Y, antinode2X, antinode2Y int
-				if v[i][0] < v[j][0] {
-					antinode1X = v[i][0] - xDiff
-					antinode2X = v[j][0] + xDiff
+				// Calculate the distances between antennas
+				yDiff := abs(v[i][0] - v[j][0])
+				xDiff := abs(v[i][1] - v[j][1])
+				// Check directions in relation to antenna i
+				var yDir, xDir int
+				if v[i][0] - v[j][0] > 0 {
+					yDir = -1
 				} else {
-					antinode1X = v[i][0] + xDiff
-					antinode2X = v[j][0] - xDiff
+					yDir = 1
 				}
-
-				if v[i][1] < v[j][1] {
-					antinode1Y = v[i][1] - yDiff
-					antinode2Y = v[j][1] + yDiff
+				if v[i][1] - v[j][1] > 0 {
+					xDir = -1
 				} else {
-					antinode1Y = v[i][1] + yDiff
-					antinode2Y = v[j][1] - yDiff
+					xDir = 1
 				}
-				potentialAntinodes = append(potentialAntinodes, [2]int{antinode1X, antinode1Y}, [2]int{antinode2X, antinode2Y})
+				newY := v[i][0] 
+				newX := v[i][1] 
+				// Keep adding antennas in intervals until we hit a border
+				for n := 1; newY >=0 && newY < maxY && newX >=0 && newX < maxX; n++ {
+					antinodes[[2]int{newY, newX}] = true
+					newY = v[i][0] + (yDiff*-yDir*n)
+					newX = v[i][1] + (xDiff*-xDir*n)
+				}
+				
+				// Do the same in the other direction
+				newY = v[j][0] 
+				newX = v[j][1]
+				for n := 1; newY >=0 && newY < maxY && newX >=0 && newX < maxX; n++ {
+					antinodes[[2]int{newY, newX}] = true
+					newY = v[j][0] + (yDiff*yDir*n)
+					newX = v[j][1] + (xDiff*xDir*n)
+					
+				}
 			}
-		}
-	}
-	for _, v := range potentialAntinodes {
-		if v[0] >= 0 && v[0] < maxY && v[1] >=0 && v[1] < maxX {
-			antinodes[v] = true
-			fmt.Println(v)
 		}
 	}
 	return len(antinodes)
